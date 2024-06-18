@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Linq.Expressions;
 
 namespace Banking_App;
 
@@ -20,20 +21,29 @@ namespace Banking_App;
 internal class Program {
     static void Main(string[] args) {
 
-     var a1 = new Savings("Savings1");
-     var a2 = new Savings ("Savings2");
+        var a1 = new Savings("Savings1");
+        var a2 = new Savings("Savings2");
 
-    Console.WriteLine($"Balance is {a1.Balance:C}");
-    a1.Deposit(500);
-    Console.WriteLine($"Balance is {a1.Balance:C}");
-    a1.Withdraw(230);
-     Console.WriteLine($"Balance is {a1.Balance:C}");
-    a1.Withdraw(300);
-    Console.WriteLine($"Balance is {a1.Balance:C}");
-    a1.Deposit(-200);
-        a1.Transfer(100, a2);
-        a2.Transfer(50, a1);
+        Console.WriteLine($"Balance is {a1.Balance:C}");
+        a1.Deposit(500);
+        Console.WriteLine($"Balance is {a1.Balance:C}");
+        a1.Withdraw(230);
+        try {
+            Console.WriteLine($"Balance is {a1.Balance:C}");
+            a1.Withdraw(300);
+            Console.WriteLine($"Balance is {a1.Balance:C}");
+            a1.Deposit(-200);
+        } catch (InsufficientFundsException ex) {
+            Console.WriteLine($"Balance is {ex.Balance}, Amount is {ex.Amount} Insufficient Funds");
+            } catch (NonPositiveAmountException ex) {
+            Console.WriteLine("Non positive amount error");
+            } catch (Exception) {
+        } Console.WriteLine("A bad exception occured");
+              
 
+                a1.Transfer(100, a2);
+                a2.Transfer(50, a1);
+            
         Console.WriteLine(($"Balance is {a1.Balance:C}"));
         a1.CalcandPayInterest(1);
         Console.WriteLine($"Balance is {a1.Balance}");

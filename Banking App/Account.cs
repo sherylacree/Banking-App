@@ -14,29 +14,25 @@ public class Account {
     public decimal Balance { get; set; } = 0;
 
     public bool Deposit(decimal Amount) {
-        if (Amount <= 0) return false;
-        Console.WriteLine("Amount cannot be zero or negative!");
-        Balance += Amount;
-        return true;
+        if (Amount <= 0){
+       throw new NonPositiveAmountException();
     }
+    Balance += Amount;
+        return true;
+        }
 
     public bool Withdraw(decimal Amount) {
         if (Amount <= 0) {
-            Console.WriteLine("Amount cannot be zero or negative!");
-            return false;
+            throw new InsufficientFundsException();
+                      
+          
         }
-
-        if (Amount > Balance) {
-            Console.WriteLine("Insufficient funds!");
-            return false;
-        }
-            Balance -= Amount;
-            return true;
-        }
-  
+        Balance -= Amount;
+        return true;
     
-    public bool Transfer(decimal Amount, Account account) {
-        var success = Withdraw(Amount);
+    }        
+     public bool Transfer(decimal Amount, Account account) {
+        var success = this.Withdraw(Amount);
         if (success == true) { 
             account.Deposit(Amount);
         }
