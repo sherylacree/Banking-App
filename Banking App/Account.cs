@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace Banking_App;
 public class Account {
-    public int AccountId { get; set; } = 0;
+    private static int nextId { get; set; } = 1;
+
+    public int AccountId { get; private set; } = 0;
     public string Description { get; set; } = string.Empty;
     public decimal Balance { get; set; } = 0;
 
@@ -39,5 +41,11 @@ public class Account {
             account.Deposit(Amount);
         }
         return true;
+    }
+    public Account(string description) {
+        AccountId = nextId++;
+        Description = description; 
+        Balance = 0;
+
     }
 }

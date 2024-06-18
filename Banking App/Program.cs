@@ -20,8 +20,8 @@ namespace Banking_App;
 internal class Program {
     static void Main(string[] args) {
 
-     Account a1 = new Account();
-     Account a2 = new Account();
+     var a1 = new Savings("Savings1");
+     var a2 = new Savings ("Savings2");
 
     Console.WriteLine($"Balance is {a1.Balance:C}");
     a1.Deposit(500);
@@ -32,6 +32,11 @@ internal class Program {
     Console.WriteLine($"Balance is {a1.Balance:C}");
     a1.Deposit(-200);
         a1.Transfer(100, a2);
+        a2.Transfer(50, a1);
+
+        Console.WriteLine(($"Balance is {a1.Balance:C}"));
+        a1.CalcandPayInterest(1);
+        Console.WriteLine($"Balance is {a1.Balance}");
 
 
 
